@@ -35,6 +35,7 @@ namespace MigrationProduct
                         {
                             Console.WriteLine($"Error migration: {e.Message}");
                         }
+                        Thread.Sleep(5000);
                     }
                 }));
             Thread Curd = new Thread(new ThreadStart(() =>
@@ -54,6 +55,7 @@ namespace MigrationProduct
                     {
                         Console.WriteLine($"Error migration: {e.Message}");
                     }
+                    Thread.Sleep(5000);
                 }
             }));
             Thread Intake = new Thread(new ThreadStart(() =>
@@ -74,6 +76,7 @@ namespace MigrationProduct
                         Console.WriteLine($"Error migration: {e.Message}");
                     }
                 }
+                Thread.Sleep(5000);
             }));
             Curd.Start();
             Intake.Start();

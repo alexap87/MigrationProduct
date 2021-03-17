@@ -36,7 +36,6 @@ namespace MigrationProduct
                         }
                         else
                             sampleIndexMySQL = 0;
-                        Console.WriteLine($"{SampleIndexMSSQL} \t\n {sampleIndexMySQL}");
                         if (sampleIndexMySQL != SampleIndexMSSQL)
                         {
                             serverbd.Database.ExecuteSqlInterpolated($"DELETE FROM doublecomponent WHERE SampleIndex >= {sampleIndexMySQL}");
@@ -66,7 +65,6 @@ namespace MigrationProduct
                         }
                         else
                             sampleIndexMySQL = 0;
-                        Console.WriteLine($"{SampleIndexMSSQL} \t\n {sampleIndexMySQL}");
                         
                         if (sampleIndexMySQL != SampleIndexMSSQL)
                         {
@@ -83,9 +81,8 @@ namespace MigrationProduct
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                Log.WriteLine(e.Message);
                 new CreaterTables().create();
-                Console.WriteLine("Done");
             }
         }
     }

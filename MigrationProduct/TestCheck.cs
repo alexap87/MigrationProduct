@@ -11,12 +11,12 @@ namespace MigrationProduct
             try
             {
                 Console.WriteLine(db.Set<T>().Take(1000).Count());
-                Console.WriteLine("yes");
+                Log.WriteLine("Exists");
                 return true;
             }
             catch (Exception)
             {
-                Console.WriteLine("no");
+                Log.WriteLine("No exists");
                 return false;
             }
         }

@@ -31,7 +31,6 @@ namespace MigrationProduct
                                 PredictedValueID;
                         else
                             predirectedIDMySQL = 0;
-                        Console.WriteLine($"{PredirectedIDMSSQL} \t\n {predirectedIDMySQL}");
                         if (PredirectedIDMSSQL != predirectedIDMySQL)
                         {
                             ServerPCdbPredicted.fsprediction.AddRange(
@@ -58,7 +57,6 @@ namespace MigrationProduct
                             ProductID;
                         else
                             productIDMySQL = 0;
-                        Console.WriteLine($"{ProductIDMSSQL} \t\n {productIDMySQL}");
                         if (ProductIDMSSQL != productIDMySQL)
                         {
                             ServerPCdbProduct.fsproduct.AddRange(
@@ -86,7 +84,6 @@ namespace MigrationProduct
                             SampleID;
                         else
                             sampleIDMySQL = 0;
-                        Console.WriteLine($"{SampleIDMSSQL} \t\n {sampleIDMySQL}");
                         if (sampleIDMySQL != SampleIDMSSQL)
                         {
                             ServerPCdbSample.fssample.AddRange(
@@ -115,7 +112,6 @@ namespace MigrationProduct
                             SubSampleID;
                         else
                             subSampleIDMySQL = 0;
-                        Console.WriteLine($"{SubSampleIDMSSQL} \t\n {subSampleIDMySQL}");
                         if (subSampleIDMySQL != SubSampleIDMSSQL)
                         {
                             ServerPCdbSubSample.fssubsample.AddRange(
@@ -130,9 +126,8 @@ namespace MigrationProduct
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Log.WriteLine(e.Message);
                 new CreaterTables().create();
-                Console.WriteLine("Done");
             }
         }
     }

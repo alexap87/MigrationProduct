@@ -22,7 +22,6 @@ namespace MigrationProduct
                     {
                         try
                         {
-                            Console.WriteLine($"1 flow {new ConnectionMilkoscanBottling().DoubleComponents.Count()} \n {CountBottling} \n");
                             if (new ConnectionMilkoscanBottling().DoubleComponents.Count() != CountBottling)
                             {
                                 new MigratorBottlingMilkoscan().Run();
@@ -33,7 +32,7 @@ namespace MigrationProduct
 
                         catch (Exception e)
                         {
-                            Console.WriteLine($"Error migration: {e.Message}");
+                            Log.WriteLine($"Error migration: {e.Message}");
                         }
                         Thread.Sleep(5000);
                     }
@@ -44,7 +43,6 @@ namespace MigrationProduct
                 {
                     try
                     {
-                        Console.WriteLine($"2 flow {new ConnectionFoodscanCurd().tblMfCdPredictedValue.Count()} \n {CountCurd} \n");
                         if (new ConnectionFoodscanCurd().tblMfCdPredictedValue.Count() != CountCurd)
                         {
                             new MigrationCurdFoodScan().Run();
@@ -53,7 +51,7 @@ namespace MigrationProduct
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine($"Error migration: {e.Message}");
+                        Log.WriteLine($"Error migration: {e.Message}");
                     }
                     Thread.Sleep(5000);
                 }
@@ -64,7 +62,6 @@ namespace MigrationProduct
                 {
                     try
                     {
-                        Console.WriteLine($"3 flow {new ConnectMilkoscanIntake().Prediction.Count()} \n {CountIntake} \n");
                         if (new ConnectMilkoscanIntake().Prediction.Count() != CountIntake)
                         {
                             new MigratorIntakeMilkoscan().Run();
@@ -73,7 +70,7 @@ namespace MigrationProduct
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine($"Error migration: {e.Message}");
+                        Log.WriteLine($"Error migration: {e.Message}");
                     }
                 }
                 Thread.Sleep(5000);

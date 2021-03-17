@@ -13,6 +13,7 @@ namespace MigrationProduct.MySQLMilkoscan.Create
         {
             if (!TestCheck.CheckTableExists<DoubleComponentsC>(new ConnectionMilkoscan()))
             {
+                Log.WriteLine("doublecomponent");
                 migrationBuilder.CreateTable(
                 name: "doublecomponent",
                 columns: table => new
@@ -34,6 +35,7 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             if (!TestCheck.CheckTableExists<tblMfCdPredictedValueC>(new ConnectionMilkoscan()))
             {
+                Log.WriteLine("fsprediction");
                 migrationBuilder.CreateTable(
                 name: "fsprediction",
                 columns: table => new
@@ -62,6 +64,7 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             if (!TestCheck.CheckTableExists<tblMfCdProductC>(new ConnectionMilkoscan()))
             {
+                Log.WriteLine("fsproduct");
                 migrationBuilder.CreateTable(
                 name: "fsproduct",
                 columns: table => new
@@ -106,6 +109,7 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             if (!TestCheck.CheckTableExists<tblMfCdSampleC>(new ConnectionMilkoscan()))
             {
+                Log.WriteLine("fssample");
                 migrationBuilder.CreateTable(
                 name: "fssample",
                 columns: table => new
@@ -140,6 +144,7 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             if (!TestCheck.CheckTableExists<tblMfCdSubSampleC>(new ConnectionMilkoscan()))
             {
+                Log.WriteLine("fssubsample");
                 migrationBuilder.CreateTable(
                 name: "fssubsample",
                 columns: table => new
@@ -169,6 +174,7 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             if (!TestCheck.CheckTableExists<PredictionC>(new ConnectionMilkoscan()))
             {
+                Log.WriteLine("prediction");
                 migrationBuilder.CreateTable(
                 name: "prediction",
                 columns: table => new
@@ -187,6 +193,7 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             if (!TestCheck.CheckTableExists<ProductC>(new ConnectionMilkoscan()))
             {
+                Log.WriteLine("product");
                 migrationBuilder.CreateTable(
                 name: "product",
                 columns: table => new
@@ -237,6 +244,7 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             if (!TestCheck.CheckTableExists<SampleC>(new ConnectionMilkoscan()))
             {
+                Log.WriteLine("sample");
                 migrationBuilder.CreateTable(
                 name: "sample",
                 columns: table => new
@@ -267,6 +275,7 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             if (!TestCheck.CheckTableExists<TextComponentsC>(new ConnectionMilkoscan()))
             {
+                Log.WriteLine("textcomponent");
                 migrationBuilder.CreateTable(
                 name: "textcomponent",
                 columns: table => new

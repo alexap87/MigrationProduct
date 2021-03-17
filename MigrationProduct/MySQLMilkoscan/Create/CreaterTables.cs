@@ -15,7 +15,7 @@ namespace MigrationProduct.MySQLMilkoscan.Create
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                Log.WriteLine(e.Message);
             }
         }
     }

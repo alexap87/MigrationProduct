@@ -38,14 +38,15 @@ namespace MigrationProduct
                             Log.WriteLine("Entry intakedb sample");
                             ServerPCdbSample.sample.AddRange(Intakedb.Sample.Where(s => s.SampNo > sampleIDMySQL).ToList());
                             ServerPCdbSample.SaveChanges();
-                            ServerPCdbSample.Database.ExecuteSqlInterpolated($"DELETE FROM prediction WHERE SampRef >= {sampleIDMySQL}");
-                            ServerPCdbSample.prediction.AddRange(Intakedb.Prediction.Where(p => p.SampRef >= sampleIDMySQL).ToList());
-                            ServerPCdbSample.SaveChanges();
                         }
                         else
                         {
                             Log.WriteLine("No entry intakedb sample");
                         }
+                        Log.WriteLine("Entry intakedb prediction");
+                        ServerPCdbSample.Database.ExecuteSqlInterpolated($"DELETE FROM prediction WHERE SampRef >= {sampleIDMySQL}");
+                        ServerPCdbSample.prediction.AddRange(Intakedb.Prediction.Where(p => p.SampRef >= sampleIDMySQL).ToList());
+                        ServerPCdbSample.SaveChanges();
                     }
                     using (ConnectionMilkoscan ServerPCdbProduct = new ConnectionMilkoscan())
                     {

@@ -16,6 +16,7 @@ namespace MigrationProduct
                 {
                     using (ConnectionMilkoscan ServerPCdbPredicted = new ConnectionMilkoscan())
                     {
+                        Log.WriteLine("fsprediction start of the survey");
                         long PredirectedIDMSSQL = foodscandb.
                             tblMfCdPredictedValue.
                             OrderByDescending(s => s.PredictedValueID).
@@ -38,10 +39,16 @@ namespace MigrationProduct
                                 tblMfCdPredictedValue.
                                 Where(p => p.PredictedValueID > predirectedIDMySQL).ToList());
                             ServerPCdbPredicted.SaveChanges();
+                            Log.WriteLine("Entry intakedb fsprediction");
+                        }
+                        else
+                        {
+                            Log.WriteLine("No entry intakedb fsprediction");
                         }
                     }
                     using (ConnectionMilkoscan ServerPCdbProduct = new ConnectionMilkoscan())
                     {
+                        Log.WriteLine("fsproduct start of the survey");
                         long ProductIDMSSQL = foodscandb.
                             tblMfCdProduct.
                             OrderByDescending(p => p.ProductID).
@@ -64,10 +71,16 @@ namespace MigrationProduct
                                 tblMfCdProduct.
                                 Where(p => p.ProductID > productIDMySQL).ToList());
                             ServerPCdbProduct.SaveChanges();
+                            Log.WriteLine("Entry intakedb fsproduct");
+                        }
+                        else
+                        {
+                            Log.WriteLine("No entry intakedb fsproduct");
                         }
                     }
                     using (ConnectionMilkoscan ServerPCdbSample = new ConnectionMilkoscan())
                     {
+                        Log.WriteLine("fssample start of the survey");
                         long SampleIDMSSQL = foodscandb.
                             tblMfCdSample.
                             OrderByDescending(s => s.SampleID).
@@ -92,10 +105,16 @@ namespace MigrationProduct
                                 Where(s => s.SampleID > sampleIDMySQL).
                                 ToList());
                             ServerPCdbSample.SaveChanges();
+                            Log.WriteLine("Entry intakedb fssample");
+                        }
+                        else
+                        {
+                            Log.WriteLine("No entry intakedb fssample");
                         }
                     }
                     using (ConnectionMilkoscan ServerPCdbSubSample = new ConnectionMilkoscan())
                     {
+                        Log.WriteLine("fssubsample start of the survey");
                         long SubSampleIDMSSQL = foodscandb.
                             tblMfCdSubSample.
                             OrderByDescending(s => s.SubSampleID).
@@ -120,6 +139,11 @@ namespace MigrationProduct
                                 Where(s => s.SubSampleID > subSampleIDMySQL).
                                 ToList());
                             ServerPCdbSubSample.SaveChanges();
+                            Log.WriteLine("Entry intakedb fsSubSample");
+                        }
+                        else
+                        {
+                            Log.WriteLine("No entry intakedb fsSubSample");
                         }
                     }
                 }

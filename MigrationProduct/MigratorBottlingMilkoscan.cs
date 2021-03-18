@@ -19,7 +19,8 @@ namespace MigrationProduct
                 using (ConnectionMilkoscanBottling bottlingdb = new ConnectionMilkoscanBottling())
                 {
                     using (ConnectionMilkoscan serverbd = new ConnectionMilkoscan())
-                    { 
+                    {
+                        Log.WriteLine("doublecomponents start of the survey");
                         int SampleIndexMSSQL = bottlingdb.
                             DoubleComponents.
                             OrderByDescending(d => d.SampleIndex).
@@ -45,10 +46,16 @@ namespace MigrationProduct
                                 Where(d => d.SampleIndex > sampleIndexMySQL).
                                 ToList());
                             serverbd.SaveChanges();
+                            Log.WriteLine("Entry intakedb doublecomponents");
+                        }
+                        else
+                        {
+                            Log.WriteLine("No entry intakedb doublecomponents");
                         }
                     }
                     using (ConnectionMilkoscan serverbd = new ConnectionMilkoscan())
                     {
+                        Log.WriteLine("textcomponents start of the survey");
                         int SampleIndexMSSQL = bottlingdb.
                             TextComponents.
                             OrderByDescending(d => d.SampleIndex).
@@ -62,6 +69,7 @@ namespace MigrationProduct
                             OrderByDescending(d => d.SampleIndex).
                             ToList()[0].
                             SampleIndex;
+
                         }
                         else
                             sampleIndexMySQL = 0;
@@ -75,6 +83,11 @@ namespace MigrationProduct
                                 Where(d => d.SampleIndex > sampleIndexMySQL).
                                 ToList());
                             serverbd.SaveChanges();
+                            Log.WriteLine("Entry intakedb textcomponents");
+                        }
+                        else
+                        {
+                            Log.WriteLine("No entry intakedb textcomponents");
                         }
                     }
                 }

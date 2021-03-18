@@ -15,34 +15,33 @@ namespace MigrationProduct
         bool enabled = true;
         public void started()
         {
-
-            Thread Bottling = new Thread(new ThreadStart(() =>
-                {
-                    while (enabled)
-                    {
-                        try
-                        {
-                            if (new ConnectionMilkoscanBottling().DoubleComponents.Count() != CountBottling)
-                            {
-                                new MigratorBottlingMilkoscan().Run();
-                                CountBottling = new ConnectionMilkoscanBottling().DoubleComponents.Count();
-                            }
-                        }
-
-
-                        catch (Exception e)
-                        {
-                            Log.WriteLine($"Error migration: {e.Message}");
-                        }
-                        Thread.Sleep(5000);
-                    }
-                }));
-            Thread Curd = new Thread(new ThreadStart(() =>
+            Thread bottling = new Thread(new ThreadStart(() =>
             {
                 while (enabled)
                 {
                     try
                     {
+                        //Log.WriteLine("runable bottling");
+                        if (new ConnectionMilkoscanBottling().DoubleComponents.Count() != CountBottling)
+                        {
+                            new MigratorBottlingMilkoscan().Run();
+                            CountBottling = new ConnectionMilkoscanBottling().DoubleComponents.Count();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Log.WriteLine($"Error migration: {e.Message}");
+                    }
+                    Thread.Sleep(5000);
+                }
+            }));
+            Thread curd = new Thread(new ThreadStart(() =>
+            {
+                while (enabled)
+                {
+                    try
+                    {
+                        //Log.WriteLine("runable curd");
                         if (new ConnectionFoodscanCurd().tblMfCdPredictedValue.Count() != CountCurd)
                         {
                             new MigrationCurdFoodScan().Run();
@@ -56,12 +55,13 @@ namespace MigrationProduct
                     Thread.Sleep(5000);
                 }
             }));
-            Thread Intake = new Thread(new ThreadStart(() =>
+            Thread intake = new Thread(new ThreadStart(() =>
             {
                 while (enabled)
                 {
                     try
                     {
+                        //Log.WriteLine("runable intake");
                         if (new ConnectMilkoscanIntake().Prediction.Count() != CountIntake)
                         {
                             new MigratorIntakeMilkoscan().Run();
@@ -72,14 +72,15 @@ namespace MigrationProduct
                     {
                         Log.WriteLine($"Error migration: {e.Message}");
                     }
+                    Thread.Sleep(5000);
                 }
-                Thread.Sleep(5000);
             }));
-            Curd.Start();
-            Intake.Start();
-            Bottling.Start();
-
-
+            bottling.Start();
+            curd.Start();
+            intake.Start();
+            bottling.Join();
+            curd.Join();
+            intake.Join();
         }
         public void stoped()
         {

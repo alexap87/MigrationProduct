@@ -18,6 +18,7 @@ namespace MigrationProduct
                 {
                     using (ConnectionMilkoscan ServerPCdbSample = new ConnectionMilkoscan())
                     {
+                        Log.WriteLine("sample start of the survey");
                         int sampleIDMySQL;
                         int SampleIDMSSQL = Intakedb.Sample.OrderByDescending(s => s.SampNo).Take(1).ToList()[0].SampNo;
                         if(TestCheck.checkingPresenceColumn<SampleC>(new ConnectionMilkoscan()))
@@ -34,8 +35,7 @@ namespace MigrationProduct
                         sampleIDMySQL = 0;
                         if (sampleIDMySQL != SampleIDMSSQL)
                         {
-                            Console.WriteLine(sampleIDMySQL.ToString());
-                            Console.WriteLine(SampleIDMSSQL.ToString());
+                            Log.WriteLine("Entry intakedb sample");
                             ServerPCdbSample.sample.AddRange(Intakedb.Sample.Where(s => s.SampNo > sampleIDMySQL).ToList());
                             ServerPCdbSample.SaveChanges();
                             ServerPCdbSample.Database.ExecuteSqlInterpolated($"DELETE FROM prediction WHERE SampRef >= {sampleIDMySQL}");
@@ -49,6 +49,7 @@ namespace MigrationProduct
                     }
                     using (ConnectionMilkoscan ServerPCdbProduct = new ConnectionMilkoscan())
                     {
+                        Log.WriteLine("product start of the survey");
                         int prodNoMySQL;
                         int ProdNoMSSQL = Intakedb.Product.OrderByDescending(p => p.ProdNo).Take(1).ToList()[0].ProdNo;
                         if (TestCheck.checkingPresenceColumn<ProductC>(new ConnectionMilkoscan()))
@@ -67,6 +68,11 @@ namespace MigrationProduct
                         {
                             ServerPCdbProduct.product.AddRange(Intakedb.Product.Where(p => p.ProdNo > prodNoMySQL).ToList());
                             ServerPCdbProduct.SaveChanges();
+                            Log.WriteLine("Entry intakedb product");
+                        }
+                        else 
+                        {
+                            Log.WriteLine("No entry intakedb product");
                         }
                     }
                 }

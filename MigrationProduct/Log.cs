@@ -13,7 +13,6 @@ namespace MigrationProduct
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
             }
             File.AppendAllText(path, $"{DateTime.UtcNow.ToString()} : {message} {Environment.NewLine}");
-
         }
     }
 }

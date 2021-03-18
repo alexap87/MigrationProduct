@@ -78,9 +78,6 @@ namespace MigrationProduct
             bottling.Start();
             curd.Start();
             intake.Start();
-            bottling.Join();
-            curd.Join();
-            intake.Join();
         }
         public void stoped()
         {

@@ -7,12 +7,13 @@ namespace MigrationProduct
     {
         public static void WriteLine(string message)
         {
-            string path = @"c:\\MigrationMSSQL\log_migration";
+            /*string path = @"c:\\MigrationMSSQL\log_migration";
             if (!File.Exists(path))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
             }
-            File.AppendAllText(path, $"{DateTime.UtcNow.ToString()} : {message} {Environment.NewLine}");
+            File.AppendAllText(path, $"{DateTime.Now.ToString()} : {message} {Environment.NewLine}");*/
+            Console.WriteLine($"{DateTime.Now.ToString()} : {message} {Environment.NewLine}");
         }
     }
 }

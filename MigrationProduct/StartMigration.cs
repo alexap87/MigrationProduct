@@ -21,7 +21,7 @@ namespace MigrationProduct
                 {
                     try
                     {
-                        //Log.WriteLine("runable bottling");
+                        Log.WriteLine("runable bottling");
                         if (new ConnectionMilkoscanBottling().DoubleComponents.Count() != CountBottling)
                         {
                             new MigratorBottlingMilkoscan().Run();
@@ -41,7 +41,7 @@ namespace MigrationProduct
                 {
                     try
                     {
-                        //Log.WriteLine("runable curd");
+                        Log.WriteLine("runable curd");
                         if (new ConnectionFoodscanCurd().tblMfCdPredictedValue.Count() != CountCurd)
                         {
                             new MigrationCurdFoodScan().Run();
@@ -61,7 +61,7 @@ namespace MigrationProduct
                 {
                     try
                     {
-                        //Log.WriteLine("runable intake");
+                        Log.WriteLine("runable intake");
                         if (new ConnectMilkoscanIntake().Prediction.Count() != CountIntake)
                         {
                             new MigratorIntakeMilkoscan().Run();
@@ -76,8 +76,9 @@ namespace MigrationProduct
                 }
             }));
             bottling.Start();
-            curd.Start();
             intake.Start();
+            curd.Start();
+            
         }
         public void stoped()
         {

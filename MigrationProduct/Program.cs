@@ -12,8 +12,9 @@ namespace MigrationProduct
     {
         static void Main(string[] args)
         {
-            ServiceBase.Run(new LoggingService());
+            //ServiceBase.Run(new LoggingService());
             Log.WriteLine("StartProgram.");
+            new StartMigration().started();
         }
     }
 }

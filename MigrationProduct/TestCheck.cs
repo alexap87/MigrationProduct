@@ -22,10 +22,17 @@ namespace MigrationProduct
         }
         public static bool checkingPresenceColumn<T>(this ConnectionMilkoscan db) where T : class
         {
-            if (db.Set<T>().Take(1000).Count() > 0)
-                return true;
-            else
+            try
+            {
+                if (db.Set<T>().Take(1000).Count() > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
                 return false;
+            }
         }
     }
 }

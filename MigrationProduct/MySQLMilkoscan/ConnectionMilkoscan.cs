@@ -16,6 +16,7 @@ namespace MigrationProduct.MySQLMilkoscan
         public DbSet<tblMfCdProductC> fsproduct { get; set; }
         public DbSet<tblMfCdSampleC> fssample { get; set; }
         public DbSet<tblMfCdSubSampleC> fssubsample { get; set; }
+        public DbSet<ResultsC> result { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseMySQL("server=localhost;user id=ASUTP;password=15793;persistsecurityinfo=True;database=millkoscan;");
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,11 +46,11 @@ namespace MigrationProduct.MySQLMilkoscan
             {
                 entity.HasKey(e => new
                 {
-                    e.WorkstationID,
                     e.SampleIndex,
+                    e.CID,
                     e.IntakeNumerator,
                     e.SyntheticNumerator,
-                    e.CID
+                    e.WorkstationID
                 });
             });
 
@@ -57,11 +58,22 @@ namespace MigrationProduct.MySQLMilkoscan
             {
                 entity.HasKey(e => new
                 {
-                    e.WorkstationID,
+                    e.SampleIndex,
+                    e.CID,
+                    e.IntakeNumerator,
+                    e.SyntheticNumerator,
+                    e.WorkstationID
+                });
+            });
+
+            modelBuilder.Entity<ResultsC>(entity =>
+            {
+                entity.HasKey(e => new
+                {
                     e.SampleIndex,
                     e.IntakeNumerator,
                     e.SyntheticNumerator,
-                    e.CID
+                    e.WorkstationID
                 });
             });
 

@@ -19,10 +19,10 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             modelBuilder.Entity("MigrationProduct.Bottling.DoubleComponentsC", b =>
                 {
-                    b.Property<short>("WorkstationID")
-                        .HasColumnType("smallint");
-
                     b.Property<int>("SampleIndex")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CID")
                         .HasColumnType("int");
 
                     b.Property<byte>("IntakeNumerator")
@@ -31,8 +31,8 @@ namespace MigrationProduct.MySQLMilkoscan.Create
                     b.Property<byte>("SyntheticNumerator")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("CID")
-                        .HasColumnType("int");
+                    b.Property<short>("WorkstationID")
+                        .HasColumnType("smallint");
 
                     b.Property<double?>("ReferenceValue")
                         .HasColumnType("double");
@@ -43,16 +43,15 @@ namespace MigrationProduct.MySQLMilkoscan.Create
                     b.Property<double?>("Value")
                         .HasColumnType("double");
 
-                    b.HasKey("WorkstationID", "SampleIndex", "IntakeNumerator", "SyntheticNumerator", "CID");
+                    b.HasKey("SampleIndex", "CID", "IntakeNumerator", "SyntheticNumerator", "WorkstationID");
+
+                    b.HasIndex("SampleIndex", "IntakeNumerator", "SyntheticNumerator", "WorkstationID");
 
                     b.ToTable("doublecomponent");
                 });
 
-            modelBuilder.Entity("MigrationProduct.Bottling.TextComponentsC", b =>
+            modelBuilder.Entity("MigrationProduct.Bottling.ResultsC", b =>
                 {
-                    b.Property<short>("WorkstationID")
-                        .HasColumnType("smallint");
-
                     b.Property<int>("SampleIndex")
                         .HasColumnType("int");
 
@@ -62,8 +61,85 @@ namespace MigrationProduct.MySQLMilkoscan.Create
                     b.Property<byte>("SyntheticNumerator")
                         .HasColumnType("tinyint");
 
+                    b.Property<short>("WorkstationID")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Export")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<byte[]>("InstrumentSampleID")
+                        .IsRequired()
+                        .HasColumnType("varbinary(16)");
+
+                    b.Property<short>("IsLinkDiagnosticUploaded")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("IsModified")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("IsMosaicUploaded")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("JobIndex")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Numerator")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OriginalJobIndex")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RackID")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("ResultSubType")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime>("ResultTime")
+                        .HasColumnType("datetime");
+
+                    b.Property<byte>("ResultType")
+                        .HasColumnType("tinyint");
+
+                    b.Property<bool>("SaveForever")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("SetupIndex")
+                        .HasColumnType("int");
+
+                    b.Property<short>("Status")
+                        .HasColumnType("smallint");
+
+                    b.Property<bool>("StoreOnServer")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("SampleIndex", "IntakeNumerator", "SyntheticNumerator", "WorkstationID");
+
+                    b.ToTable("result");
+                });
+
+            modelBuilder.Entity("MigrationProduct.Bottling.TextComponentsC", b =>
+                {
+                    b.Property<int>("SampleIndex")
+                        .HasColumnType("int");
+
                     b.Property<int>("CID")
                         .HasColumnType("int");
+
+                    b.Property<byte>("IntakeNumerator")
+                        .HasColumnType("tinyint");
+
+                    b.Property<byte>("SyntheticNumerator")
+                        .HasColumnType("tinyint");
+
+                    b.Property<short>("WorkstationID")
+                        .HasColumnType("smallint");
 
                     b.Property<short?>("Status")
                         .HasColumnType("smallint");
@@ -71,7 +147,9 @@ namespace MigrationProduct.MySQLMilkoscan.Create
                     b.Property<string>("Value")
                         .HasColumnType("text");
 
-                    b.HasKey("WorkstationID", "SampleIndex", "IntakeNumerator", "SyntheticNumerator", "CID");
+                    b.HasKey("SampleIndex", "CID", "IntakeNumerator", "SyntheticNumerator", "WorkstationID");
+
+                    b.HasIndex("SampleIndex", "IntakeNumerator", "SyntheticNumerator", "WorkstationID");
 
                     b.ToTable("textcomponent");
                 });
@@ -537,6 +615,35 @@ namespace MigrationProduct.MySQLMilkoscan.Create
                     b.HasKey("SampNo");
 
                     b.ToTable("sample");
+                });
+
+            modelBuilder.Entity("MigrationProduct.Bottling.DoubleComponentsC", b =>
+                {
+                    b.HasOne("MigrationProduct.Bottling.ResultsC", "Results")
+                        .WithMany("DoubleComponents")
+                        .HasForeignKey("SampleIndex", "IntakeNumerator", "SyntheticNumerator", "WorkstationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Results");
+                });
+
+            modelBuilder.Entity("MigrationProduct.Bottling.TextComponentsC", b =>
+                {
+                    b.HasOne("MigrationProduct.Bottling.ResultsC", "Results")
+                        .WithMany("TextComponents")
+                        .HasForeignKey("SampleIndex", "IntakeNumerator", "SyntheticNumerator", "WorkstationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Results");
+                });
+
+            modelBuilder.Entity("MigrationProduct.Bottling.ResultsC", b =>
+                {
+                    b.Navigation("DoubleComponents");
+
+                    b.Navigation("TextComponents");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,7 @@
 ﻿
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace MigrationProduct.Bottling
 {
     public class TextComponentsC
@@ -11,5 +13,7 @@ namespace MigrationProduct.Bottling
         public int CID { get; set; }
         public string? Value { get; set; }
         public short? Status { get; set; }
+        [ForeignKey("SampleIndex, IntakeNumerator, SyntheticNumerator, WorkstationID")]
+        public virtual ResultsC Results { get; set; }
     }
 }

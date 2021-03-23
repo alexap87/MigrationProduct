@@ -1,5 +1,7 @@
 ﻿
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace MigrationProduct.Bottling
 {
     public class DoubleComponentsC
@@ -12,5 +14,7 @@ namespace MigrationProduct.Bottling
         public double? Value { get; set; }
         public short Status { get; set; }
         public double? ReferenceValue { get; set; }
+        [ForeignKey("SampleIndex, IntakeNumerator, SyntheticNumerator, WorkstationID")]
+        public virtual ResultsC Results { get; set; }
     }
 }

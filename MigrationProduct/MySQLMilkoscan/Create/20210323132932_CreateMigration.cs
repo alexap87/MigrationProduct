@@ -7,35 +7,12 @@ using MySql.EntityFrameworkCore.Metadata;
 
 namespace MigrationProduct.MySQLMilkoscan.Create
 {
-    public partial class CreateMilkoscan : Migration
+    public partial class CreateMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            if (!TestCheck.CheckTableExists<DoubleComponentsC>(new ConnectionMilkoscan()))
-            {
-                Log.WriteLine("doublecomponent");
-                migrationBuilder.CreateTable(
-                name: "doublecomponent",
-                columns: table => new
-                {
-                    WorkstationID = table.Column<short>(type: "smallint", nullable: false),
-                    SampleIndex = table.Column<int>(type: "int", nullable: false),
-                    IntakeNumerator = table.Column<byte>(type: "tinyint", nullable: false),
-                    SyntheticNumerator = table.Column<byte>(type: "tinyint", nullable: false),
-                    CID = table.Column<int>(type: "int", nullable: false),
-                    Value = table.Column<double>(type: "double", nullable: true),
-                    Status = table.Column<short>(type: "smallint", nullable: false),
-                    ReferenceValue = table.Column<double>(type: "double", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_doublecomponent", x => new { x.WorkstationID, x.SampleIndex, x.IntakeNumerator, x.SyntheticNumerator, x.CID });
-                });
-            }
-
             if (!TestCheck.CheckTableExists<tblMfCdPredictedValueC>(new ConnectionMilkoscan()))
             {
-                Log.WriteLine("fsprediction");
                 migrationBuilder.CreateTable(
                 name: "fsprediction",
                 columns: table => new
@@ -64,7 +41,6 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             if (!TestCheck.CheckTableExists<tblMfCdProductC>(new ConnectionMilkoscan()))
             {
-                Log.WriteLine("fsproduct");
                 migrationBuilder.CreateTable(
                 name: "fsproduct",
                 columns: table => new
@@ -109,7 +85,6 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             if (!TestCheck.CheckTableExists<tblMfCdSampleC>(new ConnectionMilkoscan()))
             {
-                Log.WriteLine("fssample");
                 migrationBuilder.CreateTable(
                 name: "fssample",
                 columns: table => new
@@ -144,7 +119,6 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             if (!TestCheck.CheckTableExists<tblMfCdSubSampleC>(new ConnectionMilkoscan()))
             {
-                Log.WriteLine("fssubsample");
                 migrationBuilder.CreateTable(
                 name: "fssubsample",
                 columns: table => new
@@ -174,7 +148,6 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             if (!TestCheck.CheckTableExists<PredictionC>(new ConnectionMilkoscan()))
             {
-                Log.WriteLine("prediction");
                 migrationBuilder.CreateTable(
                 name: "prediction",
                 columns: table => new
@@ -193,7 +166,6 @@ namespace MigrationProduct.MySQLMilkoscan.Create
 
             if (!TestCheck.CheckTableExists<ProductC>(new ConnectionMilkoscan()))
             {
-                Log.WriteLine("product");
                 migrationBuilder.CreateTable(
                 name: "product",
                 columns: table => new
@@ -242,9 +214,43 @@ namespace MigrationProduct.MySQLMilkoscan.Create
                 });
             }
 
+            if (!TestCheck.CheckTableExists<ResultsC>(new ConnectionMilkoscan()))
+            {
+                migrationBuilder.CreateTable(
+                name: "result",
+                columns: table => new
+                {
+                    WorkstationID = table.Column<short>(type: "smallint", nullable: false),
+                    SampleIndex = table.Column<int>(type: "int", nullable: false),
+                    IntakeNumerator = table.Column<byte>(type: "tinyint", nullable: false),
+                    SyntheticNumerator = table.Column<byte>(type: "tinyint", nullable: false),
+                    ResultTime = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Export = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    SaveForever = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    StoreOnServer = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Comments = table.Column<string>(type: "text", nullable: true),
+                    Status = table.Column<short>(type: "smallint", nullable: false),
+                    ResultType = table.Column<byte>(type: "tinyint", nullable: false),
+                    ResultSubType = table.Column<byte>(type: "tinyint", nullable: false),
+                    SetupIndex = table.Column<int>(type: "int", nullable: false),
+                    JobIndex = table.Column<int>(type: "int", nullable: false),
+                    Numerator = table.Column<int>(type: "int", nullable: false),
+                    Position = table.Column<int>(type: "int", nullable: false),
+                    RackID = table.Column<int>(type: "int", nullable: false),
+                    OriginalJobIndex = table.Column<int>(type: "int", nullable: false),
+                    IsMosaicUploaded = table.Column<short>(type: "smallint", nullable: false),
+                    IsModified = table.Column<short>(type: "smallint", nullable: false),
+                    InstrumentSampleID = table.Column<byte[]>(type: "varbinary(16)", nullable: false),
+                    IsLinkDiagnosticUploaded = table.Column<short>(type: "smallint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_result", x => new { x.SampleIndex, x.IntakeNumerator, x.SyntheticNumerator, x.WorkstationID });
+                });
+            }
+
             if (!TestCheck.CheckTableExists<SampleC>(new ConnectionMilkoscan()))
             {
-                Log.WriteLine("sample");
                 migrationBuilder.CreateTable(
                 name: "sample",
                 columns: table => new
@@ -273,9 +279,35 @@ namespace MigrationProduct.MySQLMilkoscan.Create
                 });
             }
 
+            if (!TestCheck.CheckTableExists<DoubleComponentsC>(new ConnectionMilkoscan()))
+            {
+                migrationBuilder.CreateTable(
+                name: "doublecomponent",
+                columns: table => new
+                {
+                    WorkstationID = table.Column<short>(type: "smallint", nullable: false),
+                    SampleIndex = table.Column<int>(type: "int", nullable: false),
+                    IntakeNumerator = table.Column<byte>(type: "tinyint", nullable: false),
+                    SyntheticNumerator = table.Column<byte>(type: "tinyint", nullable: false),
+                    CID = table.Column<int>(type: "int", nullable: false),
+                    Value = table.Column<double>(type: "double", nullable: true),
+                    Status = table.Column<short>(type: "smallint", nullable: false),
+                    ReferenceValue = table.Column<double>(type: "double", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_doublecomponent", x => new { x.SampleIndex, x.CID, x.IntakeNumerator, x.SyntheticNumerator, x.WorkstationID });
+                    table.ForeignKey(
+                        name: "FK_doublecomponent_result_SampleIndex_IntakeNumerator_Synthetic~",
+                        columns: x => new { x.SampleIndex, x.IntakeNumerator, x.SyntheticNumerator, x.WorkstationID },
+                        principalTable: "result",
+                        principalColumns: new[] { "SampleIndex", "IntakeNumerator", "SyntheticNumerator", "WorkstationID" },
+                        onDelete: ReferentialAction.Cascade);
+                });
+            }
+
             if (!TestCheck.CheckTableExists<TextComponentsC>(new ConnectionMilkoscan()))
             {
-                Log.WriteLine("textcomponent");
                 migrationBuilder.CreateTable(
                 name: "textcomponent",
                 columns: table => new
@@ -290,9 +322,25 @@ namespace MigrationProduct.MySQLMilkoscan.Create
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_textcomponent", x => new { x.WorkstationID, x.SampleIndex, x.IntakeNumerator, x.SyntheticNumerator, x.CID });
+                    table.PrimaryKey("PK_textcomponent", x => new { x.SampleIndex, x.CID, x.IntakeNumerator, x.SyntheticNumerator, x.WorkstationID });
+                    table.ForeignKey(
+                        name: "FK_textcomponent_result_SampleIndex_IntakeNumerator_SyntheticNu~",
+                        columns: x => new { x.SampleIndex, x.IntakeNumerator, x.SyntheticNumerator, x.WorkstationID },
+                        principalTable: "result",
+                        principalColumns: new[] { "SampleIndex", "IntakeNumerator", "SyntheticNumerator", "WorkstationID" },
+                        onDelete: ReferentialAction.Cascade);
                 });
             }
+
+            migrationBuilder.CreateIndex(
+                name: "IX_doublecomponent_SampleIndex_IntakeNumerator_SyntheticNumerat~",
+                table: "doublecomponent",
+                columns: new[] { "SampleIndex", "IntakeNumerator", "SyntheticNumerator", "WorkstationID" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_textcomponent_SampleIndex_IntakeNumerator_SyntheticNumerator~",
+                table: "textcomponent",
+                columns: new[] { "SampleIndex", "IntakeNumerator", "SyntheticNumerator", "WorkstationID" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -322,7 +370,10 @@ namespace MigrationProduct.MySQLMilkoscan.Create
                 name: "sample");
 
             migrationBuilder.DropTable(
-                name: "textcomponent");*/
+                name: "textcomponent");
+
+            migrationBuilder.DropTable(
+                name: "result");*/
         }
     }
 }
